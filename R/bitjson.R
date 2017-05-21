@@ -6,9 +6,11 @@ serializeDataToBits <- function(x) {
 }
 
 #' @export
-isBitJSON <- function(json, pattern='*') {
-  stopifnot(isTruthyChar(json))
-  return(grepl('\\[("0?0|0?1{1,2}",){7,}"0?0|0?1{1,2}"\\]', json, perl=TRUE))
+isBitJSON <- function(json, pattern=NULL) {
+  stopifnot(isTruthyChar(json), is.null(pattern) | isTruthyChar(pattern))
+  return(grepl('\\[("(0?0|0?1){1,2}",){7,}"(0?0|0?1){1,2}"\\]',
+               json,
+               perl=TRUE))
 }
 
 #' Serialize an R object to bit JSON
@@ -16,11 +18,15 @@ isBitJSON <- function(json, pattern='*') {
 #' 
 #' 
 #' @export
-toBitJSON <- function(x, file=NULL, remote=NULL, pattern='*') {
+toBitJSON <- function(x,
+                      file=NULL,
+                      remote=NULL,
+                      pattern=NULL) {
   stopifnot(isRData(x), 
             is.null(file) | is.null(remote),
             is.null(file) | isValidFileName(file),
-            is.null(remote) | isValidRemoteName(remote))
+            is.null(remote) | isValidRemoteName(remote),
+            is.null(pattern) | isTruthyChar(pattern))
   z <- jsonlite::toJSON(as.character(serializeDataToBits(x)))
   if (is.null(file) && is.null(remote)) {
     return(z)
@@ -38,7 +44,7 @@ toBitJSON <- function(x, file=NULL, remote=NULL, pattern='*') {
 #' 
 #' 
 #' @export
-fromBitJSON <- function(x) {
-  stopifnot(isBitJSON(x))
+fromBitJSON <- function(x, pattern=NULL) {
+  stopifnot(isBitJSON(x), is.null(pattern) | isTruthyChar(pattern))
   return(unserialize(packBits(as.integer(jsonlite::fromJSON(x)), type='raw')))
 }
