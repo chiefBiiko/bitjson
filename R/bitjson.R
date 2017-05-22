@@ -8,7 +8,13 @@ serializeDataToBits <- function(x) {
 #' @export
 isBitJSON <- function(json, pattern=NULL) {
   stopifnot(isTruthyChar(json), is.null(pattern) | isTruthyChar(pattern))
-  return(grepl('\\[("(0?0|0?1)",){7,}"(0?0|0?1)"\\]', json, perl=TRUE))
+  return(grepl('^\\[("(0?0|0?1)",){7,}"(0?0|0?1)"\\]$', json, perl=TRUE))
+}
+
+#' @export
+containsBitJSON <- function(json, pattern=NULL) {
+  stopifnot(isTruthyChar(json), is.null(pattern) | isTruthyChar(pattern))
+  return(grepl('^.*\\[("(0?0|0?1)",){7,}"(0?0|0?1)"\\].*$', json, perl=TRUE))
 }
 
 #' Serialize an R object to bit JSON
