@@ -19,15 +19,6 @@ isTruthyChar <- function(string) {
 }
 
 #' 
-isValidFileName <- function(filename) {
-  if (is.character(filename) && nchar(filename) > 0L) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-}
-
-#' 
 isValidRemoteName <- function(remotename) {
   if (is.character(remotename) && 
       grepl('http(s)?://.+\\..+', remotename, perl=TRUE)) {
