@@ -10,7 +10,7 @@ isRData <- function(x) {
 }
 
 #' 
-isTruthyChar <- function(string) {
+isTruthyChr <- function(string) {
   if (is.character(string) && nchar(string) > 0L) {
     return(TRUE)
   } else {

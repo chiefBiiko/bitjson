@@ -7,14 +7,27 @@ serializeDataToBits <- function(x) {
 
 #' @export
 isBitJSON <- function(json, pattern=NULL) {
-  stopifnot(isTruthyChar(json), is.null(pattern) | isTruthyChar(pattern))
-  return(grepl('^\\[("(0?0|0?1)",){7,}"(0?0|0?1)"\\]$', json, perl=TRUE))
+  stopifnot(isTruthyChr(json), is.null(pattern) | isTruthyChr(pattern))
+  return(grepl('^\\[("?(?:0?0|0?1)"?,){7,}"?(?:0?0|0?1)"?\\]$', 
+               json, 
+               perl=TRUE))
 }
 
 #' @export
 containsBitJSON <- function(json, pattern=NULL) {
-  stopifnot(isTruthyChar(json), is.null(pattern) | isTruthyChar(pattern))
-  return(grepl('^.*\\[("(0?0|0?1)",){7,}"(0?0|0?1)"\\].*$', json, perl=TRUE))
+  stopifnot(isTruthyChr(json), is.null(pattern) | isTruthyChr(pattern))
+  return(grepl('^.*\\[("?(?:0?0|0?1)"?,){7,}"?(?:0?0|0?1)"?\\].*$', 
+               json, 
+               perl=TRUE))
+}
+
+#' @export 
+extractBitJSON <- function(json) {
+  stopifnot(isTruthyChr(json))
+  regmatches(json,  # TODO: extract all matches !!!
+             regexpr('\\[(?:("?(?:0?0|0?1)"?,){7,}"?(?:0?0|0?1)"?)+\\]', 
+                     json, 
+                     perl=TRUE))  
 }
 
 #' Serialize an R object to bit JSON
@@ -28,10 +41,10 @@ toBitJSON <- function(x,
                       pattern=NULL) {
   stopifnot(isRData(x), 
             is.null(file) | is.null(remote),
-            is.null(file) | isTruthyChar(file),
+            is.null(file) | isTruthyChr(file),
             is.null(remote) | isValidRemoteName(remote),
-            is.null(pattern) | isTruthyChar(pattern))
-  z <- jsonlite::toJSON(as.character(serializeDataToBits(x)))
+            is.null(pattern) | isTruthyChr(pattern))
+  z <- jsonlite::toJSON(serializeDataToBits(x))
   if (is.null(file) && is.null(remote)) {
     return(z)
   } else if (is.character(file)) {
@@ -49,6 +62,6 @@ toBitJSON <- function(x,
 #' 
 #' @export
 fromBitJSON <- function(x, pattern=NULL) {
-  stopifnot(isBitJSON(x), is.null(pattern) | isTruthyChar(pattern))
+  stopifnot(isBitJSON(x), is.null(pattern) | isTruthyChr(pattern))
   return(unserialize(packBits(as.integer(jsonlite::fromJSON(x)), type='raw')))
 }
