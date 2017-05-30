@@ -27,11 +27,17 @@ testthat::test_that('predicate functions work', {
   # nomatch
   testthat::expect_identical(isBitJSON(invalid.bits), FALSE)
   testthat::expect_identical(isBitJSON(nclosed.bits), FALSE)
+  testthat::expect_identical(isBitJSON(multi), FALSE)
   
   # contains
   testthat::expect_identical(containsBitJSON(nclosed.bits), TRUE)
+  testthat::expect_identical(containsBitJSON(multi), TRUE)
   
   # extract
   testthat::expect_identical(isBitJSON(extractBitJSON(nclosed.bits)), TRUE)
+  testthat::expect_identical(sapply(extractBitJSON(multi), 
+                                    isBitJSON, 
+                                    USE.NAMES=FALSE), 
+                             c(TRUE, TRUE))
 
 })

@@ -24,10 +24,11 @@ containsBitJSON <- function(json, pattern=NULL) {
 #' @export 
 extractBitJSON <- function(json) {
   stopifnot(isTruthyChr(json))
-  regmatches(json,  # TODO: extract all matches !!!
-             regexpr('\\[(?:("?(?:0?0|0?1)"?,){7,}"?(?:0?0|0?1)"?)+\\]', 
-                     json, 
-                     perl=TRUE))  
+  rtn <- regmatches(json,
+                    gregexpr('\\[(?:("?(?:0?0|0?1)"?,){7,}"?(?:0?0|0?1)"?)+\\]', 
+                             json, 
+                             perl=TRUE))[[1]]
+  return(structure(rtn, class='json'))
 }
 
 #' Serialize an R object to bit JSON
