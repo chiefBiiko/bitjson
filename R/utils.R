@@ -1,29 +1,8 @@
 # bitjson utils
 
-
-#' Serialize any R object to a bit vector.
-#' 
-#' @param x Any R object.
-#' @return Bit vector.
-#'
 #' @internal
 isTruthyChr <- function(string) {
   if (is.character(string) && nchar(string) > 0L) {
-    return(TRUE)
-  } else {
-    return(FALSE)
-  }
-}
-
-#' Is the remote a http-accessible file?
-#' 
-#' @param remote Character vector of length 1.
-#' @return Logical.
-#'
-#' @internal
-isValidRemoteName <- function(remote) {
-  if (is.character(remote) && 
-      grepl('http(s)?://.+\\..+', remote, perl=TRUE)) {
     return(TRUE)
   } else {
     return(FALSE)
@@ -47,6 +26,8 @@ isRData <- function(x) {
 #' Serialize any R object to a bit vector.
 #' 
 #' @param x Any R object.
+#' @param compress Should the bit vector be compressed via chief run-length 
+#' encoding?
 #' @return Compressed bit vector.
 #'
 #' @internal

@@ -1,6 +1,7 @@
 # bitjson
 
-#' Is a JSON string a bit array?
+#' Is a JSON string a literal bit array or a bit array compressed via chief run-
+#' length encoding?
 #'
 #' @param json JSON string.
 #' @return Logical.
@@ -47,7 +48,8 @@ extractBitJSON <- function(json) {
 #' 
 #' @param x Any R object.
 #' @param file File name to which to write bit JSON.
-#' @param compress Compress the bit array to a run length encoded digit array?
+#' @param compress Compress the return bit array to a chief run-length encoded 
+#' integer array?
 #' @return Bit json.
 #' 
 #' @export
@@ -71,10 +73,16 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
 #' Unserialize an R object encoded as bit JSON
 #' 
 #' @param x Bit JSON.
+#' @param compressed Is the bit JSON array compressed via chief run-length 
+#' encoding?
 #' @return R object.
 #' 
 #' @export
-fromBitJSON <- function(x) {
-  stopifnot(isBitJSON(x))
-  return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x))))
+fromBitJSON <- function(x, compressed=TRUE) {
+  stopifnot(isBitJSON(x), is.logical(compressed))
+  if (compressed) {
+    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), compressed=TRUE))
+  } else if (!compressed) {
+    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), compressed=FALSE))
+  }
 }

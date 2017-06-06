@@ -1,10 +1,11 @@
 # bitjson compression
 
-#' Compress a bit vector
+#' Compress a bit vector using chief run-length encoding
 #'
 #' @param bits Bit vector.
 #' @return Integer vector.
 #'
+#' @internal
 compressBits <- function(bits) {
   stopifnot(is.integer(bits))
   if (length(bits) < 3L) return(bits)
@@ -35,11 +36,12 @@ compressBits <- function(bits) {
   return(x)
 }
 
-#' Decompress an integer vector of bits
+#' Decompress a chief run-length encoded integer vector
 #'
-#' @param encbits Integer vector encoded using bitjson::compressBits.
+#' @param encbits Integer vector.
 #' @return Bit vector.
 #'
+#' @internal
 decompressBits <- function(encbits) {
   stopifnot(is.integer(encbits))
   if (length(encbits) < 2L) return(encbits)
