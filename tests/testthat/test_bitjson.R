@@ -13,13 +13,14 @@ testthat::test_that('predicate functions work', {
   
   # setup
   valid.bits <- toBitJSON(419L)
-  invalid.bits <- '[\'0\',"1","0","0",\'0\',"1","0","1"]'
+  invalid.bits <- '[0,1,0,0,\'0\',1,0,1]'
   nclosed.bits <- paste0('{"acab":', toBitJSON(1L), ',"haha":[419]}')
   multi <- paste0('[', 
                   toBitJSON(2L), ',', 
                   jsonlite::toJSON(99999L), ',', 
                   toBitJSON(419L), 
                   ']')
+  threesix <- serializeDataToBits(36L)
   
   # match
   testthat::expect_identical(isBitJSON(valid.bits), TRUE)
@@ -39,5 +40,7 @@ testthat::test_that('predicate functions work', {
                                     isBitJSON, 
                                     USE.NAMES=FALSE), 
                              c(TRUE, TRUE))
-
+  # lossless de/compression
+  testthat::expect_identical(decompressBits(compressBits(threesix)), threesix)
+  
 })
