@@ -15,7 +15,7 @@ compressBits <- function(bits) {
   # map compress
   for (i in seq(length(bits))) {
     # identify digit change
-    if (!bits[i] %in% c(bits[i - 1L], NA)) {
+    if (!bits[i] %in% bits[i - 1L]) {
       # record digit count
       if (count == 1L) {
         x <- append(x, bits[i - 1L])
