@@ -58,7 +58,7 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
             is.null(file) | isTruthyChr(file),
             is.logical(compress))
   if (compress) {
-    z <- jsonlite::toJSON(serializeToBits(x))
+    z <- jsonlite::toJSON(serializeToBits(x, compress=TRUE))
   } else if (!compress) {
     z <- jsonlite::toJSON(serializeToBits(x, compress=FALSE))
   }
