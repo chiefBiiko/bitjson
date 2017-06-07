@@ -58,9 +58,9 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
             is.null(file) | isTruthyChr(file),
             is.logical(compress))
   if (compress) {
-    z <- jsonlite::toJSON(serializeToBits(x, compress=TRUE))
+    z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
   } else if (!compress) {
-    z <- jsonlite::toJSON(serializeToBits(x, compress=FALSE))
+    z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
   }
   if (is.null(file)) {
     return(z)
@@ -81,8 +81,10 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
 fromBitJSON <- function(x, compressed=TRUE) {
   stopifnot(isBitJSON(x), is.logical(compressed))
   if (compressed) {
-    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), compressed=TRUE))
+    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), 
+                               compressed=compressed))
   } else if (!compressed) {
-    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), compressed=FALSE))
+    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), 
+                               compressed=compressed))
   }
 }
