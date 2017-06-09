@@ -5,7 +5,7 @@
 #' @param bits Bit vector.
 #' @return Integer vector.
 #'
-#' @internal
+#' @keywords internal
 compressBits <- function(bits) {
   stopifnot(is.integer(bits))
   if (length(bits) < 3L) return(bits)
@@ -41,7 +41,7 @@ compressBits <- function(bits) {
 #' @param encbits Integer vector.
 #' @return Bit vector.
 #'
-#' @internal
+#' @keywords internal
 decompressBits <- function(encbits) {
   stopifnot(is.integer(encbits))
   if (length(encbits) < 2L) return(encbits)

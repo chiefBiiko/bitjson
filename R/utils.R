@@ -5,7 +5,7 @@
 #' @param x R object.
 #' @return Logical.
 #'
-#' @internal
+#' @keywords internal
 isTruthyChr <- function(x) {
   if (is.character(x) && nchar(x) > 0L) {
     return(TRUE)
@@ -19,7 +19,7 @@ isTruthyChr <- function(x) {
 #' @param x Any R object.
 #' @return Logical.
 #'
-#' @internal 
+#' @keywords internal 
 isRData <- function(x) {
   if (is.object(x) | is.vector(x) | is.atomic(x)) {
     return(TRUE)
@@ -35,7 +35,7 @@ isRData <- function(x) {
 #' encoding?
 #' @return Compressed bit vector.
 #'
-#' @internal
+#' @keywords internal
 serializeToBits <- function(x, compress=TRUE) {
   stopifnot(isRData(x) | is.function(x))
   if (compress) {
@@ -50,7 +50,7 @@ serializeToBits <- function(x, compress=TRUE) {
 #' @param x Compressed bit vector.
 #' @return R object.
 #'
-#' @internal
+#' @keywords internal
 unSerializeFromBits <- function(x, compressed=TRUE) {
   stopifnot(is.integer(x), is.logical(compressed))
   if (compressed) {

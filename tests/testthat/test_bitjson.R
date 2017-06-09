@@ -3,12 +3,13 @@
 testthat::context('mappings and predicates')
 
 testthat::test_that('mapping preserves data integrity', {
-  # setup
-  saka <- data.frame(a=1L:2L, b=c('voo', 'doo'))
-  rectng <- data.frame(a=c(1L:7L), b=rep('harman', 7L))
+  
   # mapped still identical
-  testthat::expect_identical(fromBitJSON(toBitJSON(saka)), saka)
-  testthat::expect_identical(fromBitJSON(toBitJSON(rectng)), rectng)
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::iris)), 
+                             datasets::iris)
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::islands)), 
+                             datasets::islands)
+  
 })
 
 testthat::test_that('predicate functions work', {
@@ -17,11 +18,11 @@ testthat::test_that('predicate functions work', {
   valid.bits <- toBitJSON(419L)
   invalid.bits <- '[0,1,0,0,"0",1,0,1]'
   nclosed.bits <- paste0('{"acab":', toBitJSON(1L), ',"haha":[419]}')
-  multi <- paste0('[', 
-                  toBitJSON(2L, compress=FALSE), ',', 
-                  jsonlite::toJSON(99999L), ',', 
-                  toBitJSON(419L), 
-                  ']')
+##multi <- paste0('[', 
+##                toBitJSON(2L, compress=FALSE), ',', 
+##                jsonlite::toJSON(99999L), ',', 
+##                toBitJSON(419L), 
+##                ']')
   
   # match
   testthat::expect_identical(isBitJSON(valid.bits), 
@@ -32,21 +33,21 @@ testthat::test_that('predicate functions work', {
                              FALSE)
   testthat::expect_identical(isBitJSON(nclosed.bits), 
                              FALSE)
-  testthat::expect_identical(isBitJSON(multi), 
+  testthat::expect_identical(isBitJSON('[0,1,2,3,4]'), 
                              FALSE)
   
-  # contains
-  testthat::expect_identical(containsBitJSON(nclosed.bits), 
-                             TRUE)
-  testthat::expect_identical(containsBitJSON(multi), 
-                             TRUE)
+### contains
+##testthat::expect_identical(containsBitJSON(nclosed.bits), 
+##                           TRUE)
+##testthat::expect_identical(containsBitJSON(multi), 
+##                           TRUE)
   
-  # extract
-  testthat::expect_identical(isBitJSON(extractBitJSON(nclosed.bits)), 
-                             TRUE)
-  testthat::expect_identical(sapply(extractBitJSON(multi), 
-                                    isBitJSON,
-                                    USE.NAMES=FALSE), 
-                             c(TRUE, TRUE))
+### extract
+##testthat::expect_identical(isBitJSON(extractBitJSON(nclosed.bits)), 
+##                           TRUE)
+##testthat::expect_identical(sapply(extractBitJSON(multi), 
+##                                  isBitJSON,
+##                                  USE.NAMES=FALSE), 
+##                           c(TRUE, TRUE))
   
 })

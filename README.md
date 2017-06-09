@@ -9,7 +9,7 @@ un/marshalling *any* R object from/to a JSON bit array while providing:
 
 + perfect data consistency
 + perfectly valid JSON
-+ compression (simple run-length encoding)
++ lossless compression (simple run-length encoding)
 
 ## Get it
 
