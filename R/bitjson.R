@@ -87,7 +87,7 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
 #' 
 #' @export
 fromBitJSON <- function(x, compressed=TRUE) {
-  stopifnot(isBitJSON(x), is.logical(compressed))
+  stopifnot(jsonlite::validate(x), is.logical(compressed))  # isBitJSON
   if (compressed) {
     return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), 
                                compressed=compressed))
