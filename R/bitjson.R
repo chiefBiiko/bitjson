@@ -19,35 +19,6 @@ isBitJSON <- function(json) {
                perl=TRUE))
 }
 
-# Does a JSON string contain bit json?
-#
-# @param json JSON string.
-# @return Logical.
-#
-# @export
-#containsBitJSON <- function(json) {
-#  stopifnot(isTruthyChr(json))
-#  return(grepl(paste0('(?:^.*\\[((?:0|1),)*(?:0|1)\\].*$)|',
-#                      '(?:^.*\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\].*$)'),
-#               json,
-#               perl=TRUE))
-#}
-
-# Extract bit JSON from a JSON string
-#
-# @param json JSON string.
-# @return JSON string.
-#
-# @export
-#extractBitJSON <- function(json) {
-#  stopifnot(isTruthyChr(json))
-#  rex <- paste0('(?:\\[((?:0|1),)*(?:0|1)\\])|',
-#                '(?:\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\])')
-#  rtn <- regmatches(json, gregexpr(rex, json, perl=TRUE))[[1]]
-#  # serve
-#  return(structure(rtn, class='json'))
-#}
-
 #' Serialize an R object to bit JSON
 #'
 #' @param x Any R object.
@@ -63,11 +34,7 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
   stopifnot(isRData(x) | is.function(x),
             is.null(file) | isTruthyChr(file),
             is.logical(compress))
-  if (compress) {
-    z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
-  } else if (!compress) {
-    z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
-  }
+  z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
   if (is.null(file)) {
     return(z)
   } else if (is.character(file)) {

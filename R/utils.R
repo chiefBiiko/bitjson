@@ -40,7 +40,7 @@ serializeToBits <- function(x, compress=TRUE) {
   stopifnot(isRData(x) | is.function(x))
   if (compress) {
     return(compressBits(as.integer(rawToBits(serialize(x, connection=NULL)))))
-  } else if (!compress) {
+  } else {
     return(as.integer(rawToBits(serialize(x, connection=NULL))))
   }
 }
@@ -55,7 +55,7 @@ unSerializeFromBits <- function(x, compressed=TRUE) {
   stopifnot(is.integer(x), is.logical(compressed))
   if (compressed) {
     return(unserialize(packBits(decompressBits(x), type='raw')))
-  } else if (!compressed) {
+  } else {
     return(unserialize(packBits(x, type='raw')))
   }
 }
