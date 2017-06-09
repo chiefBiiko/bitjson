@@ -2,9 +2,9 @@
 
 #' Is a JSON string a literal bit array or a bit array compressed via chief run-
 #' length encoding?
-#' 
+#'
 #' TODO: better sequence matching !!!
-#' 
+#'
 #' @param json JSON string.
 #' @return Logical.
 #'
@@ -13,9 +13,9 @@
 #' @export
 isBitJSON <- function(json) {
   stopifnot(isTruthyChr(json))
-  return(grepl(paste0('(?:^\\[((?:0|1),)*(?:0|1)\\]$)|', 
-                      '(?:^\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\]$)'), 
-               json, 
+  return(grepl(paste0('(?:^\\[((?:0|1),)*(?:0|1)\\]$)|',
+                      '(?:^\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\]$)'),
+               json,
                perl=TRUE))
 }
 
@@ -24,12 +24,12 @@ isBitJSON <- function(json) {
 # @param json JSON string.
 # @return Logical.
 #
-# @export 
+# @export
 #containsBitJSON <- function(json) {
 #  stopifnot(isTruthyChr(json))
-#  return(grepl(paste0('(?:^.*\\[((?:0|1),)*(?:0|1)\\].*$)|', 
-#                      '(?:^.*\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\].*$)'), 
-#               json, 
+#  return(grepl(paste0('(?:^.*\\[((?:0|1),)*(?:0|1)\\].*$)|',
+#                      '(?:^.*\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\].*$)'),
+#               json,
 #               perl=TRUE))
 #}
 
@@ -38,10 +38,10 @@ isBitJSON <- function(json) {
 # @param json JSON string.
 # @return JSON string.
 #
-# @export 
+# @export
 #extractBitJSON <- function(json) {
 #  stopifnot(isTruthyChr(json))
-#  rex <- paste0('(?:\\[((?:0|1),)*(?:0|1)\\])|', 
+#  rex <- paste0('(?:\\[((?:0|1),)*(?:0|1)\\])|',
 #                '(?:\\[(?:(?:(?:0|1),)*\\d+,(?:0|1),?)+(?:0|1)*\\])')
 #  rtn <- regmatches(json, gregexpr(rex, json, perl=TRUE))[[1]]
 #  # serve
@@ -49,18 +49,18 @@ isBitJSON <- function(json) {
 #}
 
 #' Serialize an R object to bit JSON
-#' 
+#'
 #' @param x Any R object.
 #' @param file File name to which to write bit JSON.
-#' @param compress Compress the return bit array to a chief run-length encoded 
+#' @param compress Compress the return bit array to a chief run-length encoded
 #' integer array?
 #' @return Bit json.
-#' 
+#'
 #' @seealso \code{\link{isBitJSON}} \code{\link{fromBitJSON}}
-#' 
+#'
 #' @export
 toBitJSON <- function(x, file=NULL, compress=TRUE) {
-  stopifnot(isRData(x) | is.function(x), 
+  stopifnot(isRData(x) | is.function(x),
             is.null(file) | isTruthyChr(file),
             is.logical(compress))
   if (compress) {
@@ -77,22 +77,17 @@ toBitJSON <- function(x, file=NULL, compress=TRUE) {
 }
 
 #' Unserialize an R object encoded as bit JSON
-#' 
-#' @param x Bit JSON.
-#' @param compressed Is the bit JSON array compressed via chief run-length 
+#'
+#' @param x Bit JSON string or file reference.
+#' @param compressed Is the bit JSON array compressed via chief run-length
 #' encoding?
 #' @return R object.
-#' 
+#'
 #' @seealso \code{\link{toBitJSON}} \code{\link{isBitJSON}}
-#' 
+#'
 #' @export
 fromBitJSON <- function(x, compressed=TRUE) {
-  stopifnot(jsonlite::validate(x), is.logical(compressed))  # isBitJSON
-  if (compressed) {
-    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), 
-                               compressed=compressed))
-  } else if (!compressed) {
-    return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)), 
-                               compressed=compressed))
-  }
+  stopifnot(isTruthyChr(x), is.logical(compressed))
+  return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)),
+                             compressed=compressed))
 }
