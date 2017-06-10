@@ -6,30 +6,37 @@
 #' @return Integer vector.
 #'
 #' @keywords internal
-kompressBits <- function(bits) {
+compressBits <- function(bits) {
   stopifnot(is.integer(bits))
   if (length(bits) < 3L) return(bits)
   # setup
   x <- vector('integer')  # how 2 predefine length correctly?
+  # lookbehind
+  prev <- bits[1L]
+  # run length counter
   count <- 0L
   # map compress
-  for (i in seq(length(bits))) {
-    # identify digit change
-    if (!bits[i] %in% bits[i - 1L]) {
-      # record digit count
+  for (bit in bits) {
+    # identify bit change
+    if (bit != prev) {
+      # record bit count
       if (count == 1L) {
-        x <- append(x, bits[i - 1L])
-      } else if (count > 1L) {
-        x <- append(x, c(count, bits[i - 1L]))
+        x <- append(x, prev)
+      } else {  # if (count > 1L) omitted ...
+        x <- append(x, c(count, prev))
       }
-      count <- 0L        # reset digit count
+      # reset bit count
+      count <- 0L
     }
-    count <- count + 1L  # increment digit count
+    # increment bit count
+    count <- count + 1L
+    # keep bit as lookbehind
+    prev <- bit
   }
   # consume remainder
   if (count == 1L) {
     x <- append(x, bits[length(bits) - 1L])
-  } else if (count > 1L) {
+  } else {  # if (count > 1L) omitted ...
     x <- append(x, c(count, bits[length(bits) - 1L]))
   }
   # serve compressed
@@ -42,27 +49,25 @@ kompressBits <- function(bits) {
 #' @return Bit vector.
 #'
 #' @keywords internal
-kecompressBits <- function(encbits) {
+decompressBits <- function(encbits) {
   stopifnot(is.integer(encbits))
   if (length(encbits) < 2L) return(encbits)
   # setup
   litbit <- c(0L, 1L)
+  x <- vector('integer')
+  prev <- -1L
   # map decompress
-  dcdbits <- octostep::octostep(as.list(encbits), function(pre, cur, nxt) {
-    if (cur > 1L) {
-      # case cur is digit count predecessor
-      NULL
-    } else if (pre > 1L && cur %in% litbit) {
-      # case encoded digit run 
-      rep(cur, pre)
-    } else if ((is.null(pre) && cur %in% litbit) | 
-               (!is.null(pre) && pre %in% litbit && cur %in% litbit)) { 
+  for (bit in encbits) {
+    if (prev > 1L && bit %in% litbit) {
+      # case encoded bit run 
+      x <- append(x, rep(bit, prev))
+    } else if (bit %in% litbit)  { 
       # case unencoded literal bit (run of length 1)
-      cur
+      x <- append(x, bit)
     }
-  })
-  # recombine
-  rtn <- unlist(dcdbits[!sapply(dcdbits, is.null)])
+    # keep bit as lookbehind
+    prev <- bit
+  }
   # serve decompressed
-  return(rtn)
+  return(x)
 }

@@ -39,7 +39,7 @@ toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE) {
   z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
   if (is.null(file)) {
     return(z)
-  } else if (is.character(file)) {
+  } else {
     cat(z, file=file, append=append)
     return(invisible(z))
   }
