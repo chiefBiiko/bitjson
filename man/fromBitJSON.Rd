@@ -7,9 +7,9 @@
 fromBitJSON(x, compressed = TRUE)
 }
 \arguments{
-\item{x}{Bit JSON.}
+\item{x}{Bit JSON string or file reference.}
 
-\item{compressed}{Is the bit JSON array compressed via chief run-length 
+\item{compressed}{Is the bit JSON array compressed via chief run-length
 encoding?}
 }
 \value{

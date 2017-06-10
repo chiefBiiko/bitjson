@@ -4,14 +4,17 @@
 \alias{toBitJSON}
 \title{Serialize an R object to bit JSON}
 \usage{
-toBitJSON(x, file = NULL, compress = TRUE)
+toBitJSON(x, file = NULL, append = FALSE, compress = TRUE)
 }
 \arguments{
 \item{x}{Any R object.}
 
 \item{file}{File name to which to write bit JSON.}
 
-\item{compress}{Compress the return bit array to a chief run-length encoded 
+\item{append}{When writing to a file with \code{cat} overwrite or append to 
+existing contents?}
+
+\item{compress}{Compress the return bit array to a chief run-length encoded
 integer array?}
 }
 \value{

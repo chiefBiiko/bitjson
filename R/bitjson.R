@@ -23,6 +23,8 @@ isBitJSON <- function(json) {
 #'
 #' @param x Any R object.
 #' @param file File name to which to write bit JSON.
+#' @param append When writing to a file with \code{cat} overwrite or append to 
+#' existing contents? 
 #' @param compress Compress the return bit array to a chief run-length encoded
 #' integer array?
 #' @return Bit json.
@@ -30,15 +32,15 @@ isBitJSON <- function(json) {
 #' @seealso \code{\link{isBitJSON}} \code{\link{fromBitJSON}}
 #'
 #' @export
-toBitJSON <- function(x, file=NULL, compress=TRUE) {
+toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE) {
   stopifnot(isRData(x) | is.function(x),
             is.null(file) | isTruthyChr(file),
-            is.logical(compress))
+            is.logical(append), is.logical(compress))
   z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
   if (is.null(file)) {
     return(z)
   } else if (is.character(file)) {
-    cat(z, file=file, append=TRUE)
+    cat(z, file=file, append=append)
     return(invisible(z))
   }
 }
