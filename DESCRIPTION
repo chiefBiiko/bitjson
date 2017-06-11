@@ -2,13 +2,10 @@ Package: bitjson
 Title: Bit JSON
 Version: 0.0.0.9000
 Authors@R: person("Noah", "Schwarz", email = "noah.anabiik.schwarz@gmail.com", role = c("aut", "cre"))
-Description: Transform R objects to and from bit JSON.
-Imports:
-    octostep,
-    jsonlite
-Remotes: github::chiefBiiko/octostep
-Depends:
-    R (>= 3.3.2)
+Description: Un/serialize R objects from/to bit JSON.
+Imports: Rcpp, jsonlite
+LinkingTo: Rcpp
+Depends: R (>= 3.3.2)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

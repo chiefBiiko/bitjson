@@ -3,3 +3,5 @@
 export(fromBitJSON)
 export(isBitJSON)
 export(toBitJSON)
+importFrom(Rcpp,sourceCpp)
+useDynLib(bitjson)
