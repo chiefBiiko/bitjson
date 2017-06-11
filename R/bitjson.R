@@ -33,7 +33,7 @@ isBitJSON <- function(json) {
 #'
 #' @export
 toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE) {
-  stopifnot(isRData(x) | is.function(x),
+  stopifnot(isDataObject(x) | is.function(x),
             is.null(file) | isTruthyChr(file),
             is.logical(append), is.logical(compress))
   z <- jsonlite::toJSON(serializeToBits(x, compress=compress))

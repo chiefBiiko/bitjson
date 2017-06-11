@@ -18,10 +18,15 @@ isTruthyChr <- function(x) {
 #' 
 #' @param x Any R object.
 #' @return Logical.
-#'
+#' 
+#' @details Any R object for which \code{is.language} is \code{TRUE} 
+#' [calls, expressions, names/symbols] are not considered data objects 
+#' in this context.
+#' 
 #' @keywords internal 
-isRData <- function(x) {
-  if (is.object(x) | is.vector(x) | is.atomic(x)) {
+isDataObject <- function(x) {
+  if (is.vector(x) | is.atomic(x) | is.object(x) | isS4(x) | 
+      is.environment(x)) {
     return(TRUE)
   } else {
     return(FALSE)
@@ -37,7 +42,7 @@ isRData <- function(x) {
 #'
 #' @keywords internal
 serializeToBits <- function(x, compress=TRUE) {
-  stopifnot(isRData(x) | is.function(x))
+  stopifnot(isDataObject(x) | is.function(x))
   if (compress) {
     return(compressBits(as.integer(rawToBits(serialize(x, connection=NULL)))))
   } else {
