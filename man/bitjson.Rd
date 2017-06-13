@@ -12,7 +12,7 @@ De/serialization utility based on JSON bit arrays.
 
   \code{\link{toBitJSON}}
   \code{\link{fromBitJSON}}
-  \code{\link{isBitJSON}}
+  \code{\link{looksLikeBitJSON}}
 }
 
 \section{Repository}{
