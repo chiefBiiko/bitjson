@@ -11,7 +11,7 @@ toBitJSON(x, file = NULL, append = FALSE, compress = TRUE)
 
 \item{file}{File name to which to write bit JSON.}
 
-\item{append}{When writing to a file with \code{cat} overwrite or append to 
+\item{append}{When writing to a file with \code{cat} overwrite or append to
 existing contents?}
 
 \item{compress}{Compress the return bit array to a chief run-length encoded
@@ -24,6 +24,6 @@ Bit json.
 Serialize an R object to bit JSON
 }
 \seealso{
-\code{\link{isBitJSON}} \code{\link{fromBitJSON}}
+\code{\link{looksLikeBitJSON}} \code{\link{fromBitJSON}}
 }
 

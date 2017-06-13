@@ -19,6 +19,6 @@ R object.
 Unserialize an R object encoded as bit JSON
 }
 \seealso{
-\code{\link{toBitJSON}} \code{\link{isBitJSON}}
+\code{\link{toBitJSON}} \code{\link{looksLikeBitJSON}}
 }
 

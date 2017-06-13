@@ -1,53 +1,40 @@
 # test_bitjson
 
-testthat::context('mappings and predicates')
+testthat::context('consistency and predicate')
 
-testthat::test_that('mapping preserves data integrity', {
-  
+testthat::test_that('data consistency', {
+
   # mapped still identical
-  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::iris)), 
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::iris)),
                              datasets::iris)
-  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::islands)), 
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::islands)),
                              datasets::islands)
-  
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::PlantGrowth)),
+                             datasets::PlantGrowth)
+  testthat::expect_identical(fromBitJSON(toBitJSON(datasets::Nile)),
+                             datasets::Nile)
+
 })
 
-testthat::test_that('predicate functions work', {
-  
+testthat::test_that('predicate function', {
+
   # setup
   valid.bits <- toBitJSON(419L)
   invalid.bits <- '[0,1,0,0,"0",1,0,1]'
   nclosed.bits <- paste0('{"acab":', toBitJSON(1L), ',"haha":[419]}')
-##multi <- paste0('[', 
-##                toBitJSON(2L, compress=FALSE), ',', 
-##                jsonlite::toJSON(99999L), ',', 
-##                toBitJSON(419L), 
-##                ']')
-  
+
   # match
-  testthat::expect_identical(isBitJSON(valid.bits), 
+  testthat::expect_identical(looksLikeBitJSON(valid.bits),
                              TRUE)
-  
+  testthat::expect_identical(looksLikeBitJSON(gsub('"', '', invalid.bits)),
+                             TRUE)
+
   # nomatch
-  testthat::expect_identical(isBitJSON(invalid.bits), 
+  testthat::expect_identical(looksLikeBitJSON(invalid.bits),
                              FALSE)
-  testthat::expect_identical(isBitJSON(nclosed.bits), 
+  testthat::expect_identical(looksLikeBitJSON(nclosed.bits),
                              FALSE)
-  testthat::expect_identical(isBitJSON('[0,1,2,3,4]'), 
+  testthat::expect_identical(looksLikeBitJSON('[0,1,2,3,4]'),
                              FALSE)
-  
-### contains
-##testthat::expect_identical(containsBitJSON(nclosed.bits), 
-##                           TRUE)
-##testthat::expect_identical(containsBitJSON(multi), 
-##                           TRUE)
-  
-### extract
-##testthat::expect_identical(isBitJSON(extractBitJSON(nclosed.bits)), 
-##                           TRUE)
-##testthat::expect_identical(sapply(extractBitJSON(multi), 
-##                                  isBitJSON,
-##                                  USE.NAMES=FALSE), 
-##                           c(TRUE, TRUE))
-  
+
 })
