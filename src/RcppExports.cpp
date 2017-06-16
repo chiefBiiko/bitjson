@@ -27,3 +27,14 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"bitjson_compressBits", (DL_FUNC) &bitjson_compressBits, 1},
+    {"bitjson_decompressBits", (DL_FUNC) &bitjson_decompressBits, 1},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_bitjson(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}

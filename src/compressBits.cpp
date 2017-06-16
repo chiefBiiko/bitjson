@@ -27,10 +27,10 @@ Rcpp::IntegerVector compressBits(const Rcpp::IntegerVector x) {
 
   // consume remainder
   if (cnt == 1) {
-    y.push_back(x[x.size() - 2]);
+    y.push_back(prev);
   } else {
     y.push_back(cnt);
-    y.push_back(x[x.size() - 2]);
+    y.push_back(prev);
   }
 
   // serve
