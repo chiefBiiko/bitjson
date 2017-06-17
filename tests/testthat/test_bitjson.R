@@ -13,7 +13,9 @@ testthat::test_that('data consistency', {
                              datasets::PlantGrowth)
   testthat::expect_identical(fromBitJSON(toBitJSON(datasets::Nile)),
                              datasets::Nile)
-
+  testthat::expect_identical(fromBitJSON(toBitJSON(419L)), 
+                             419L)
+  
 })
 
 testthat::test_that('predicate function', {

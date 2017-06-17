@@ -23,16 +23,17 @@ looksLikeBitJSON <- function(json) {
 #' existing contents?
 #' @param compress Compress the return bit array to a chief run-length encoded
 #' integer array?
+#' @param ... Further arguments passed on to `jsonlite::toJSON`.
 #' @return Bit json.
 #'
 #' @seealso \code{\link{looksLikeBitJSON}} \code{\link{fromBitJSON}}
 #'
 #' @export
-toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE) {
+toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE, ...) {
   stopifnot(isDataObject(x) | is.function(x),
             is.null(file) | isTruthyChr(file),
             is.logical(append), is.logical(compress))
-  z <- jsonlite::toJSON(serializeToBits(x, compress=compress))
+  z <- jsonlite::toJSON(serializeToBits(x, compress=compress), ...)
   if (is.null(file)) {
     return(z)
   } else {
@@ -46,13 +47,14 @@ toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE) {
 #' @param x Bit JSON string or file reference.
 #' @param compressed Is the bit JSON array compressed via chief run-length
 #' encoding?
+#' @param ... Further arguments passed on to `jsonlite::fromJSON`.
 #' @return R object.
 #'
 #' @seealso \code{\link{toBitJSON}} \code{\link{looksLikeBitJSON}}
 #'
 #' @export
-fromBitJSON <- function(x, compressed=TRUE) {
+fromBitJSON <- function(x, compressed=TRUE, ...) {
   stopifnot(isTruthyChr(x), is.logical(compressed))
-  return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x)),
+  return(unSerializeFromBits(as.integer(jsonlite::fromJSON(x, ...)),
                              compressed=compressed))
 }

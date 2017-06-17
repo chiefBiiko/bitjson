@@ -1,0 +1,108 @@
+---
+title: "bitjson-introduction"
+author: "Noah Anabiik Schwarz"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+      toc: true
+      toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{bitjson-introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<style>
+code {word-break: break-all;}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment=NA)
+```
+
+Package `bitjson` provides powerful de/serialization utilities based on JSON bit arrays.
+
+## Motivation
+
+Motivation for writing this utility stems from the desire to un/marshal R objects from/to a text representation that perfectly preserves data consistency. Having such a *dump* mechanism available in `R` allows sending arbitrary `R` objects safely over a *wire* (network, *NIX sockets, Windows named pipes etc.). 
+
+## Examples
+
+### Data consistency
+
+```{r}
+# marshal to bit JSON
+nilebits <- bitjson::toBitJSON(datasets::Nile)
+
+# unmarshal from bit JSON
+nile <- bitjson::fromBitJSON(nilebits)
+
+# marshaled still consistent
+cat('consistent:', identical(datasets::Nile, nile))
+```
+
+### IO
+
+`bitjson::toBitJSON` allows writing bit JSON arrays directly to disk by making use of parameter `file`. Since `bitjson` depends on `jsonlite` for conversion between JSON data and `R` objects it inherits `jsonlite's` powerful IO features. Therefore, `bitjson::fromBitJSON` can unmarshal from a file, url, or in-memory JSON string.
+
+```{r}
+# write to disk
+bitjson::toBitJSON(datasets::islands, file='islands.json')
+
+# read from disk
+inlands <- bitjson::fromBitJSON('islands.json')
+
+# after io roundtrip
+cat('consistent via disk:', identical(datasets::islands, inlands))
+```
+
+## Data format
+
+`bitjson` uses JSON arrays as underlying data structure. A `bitjson` array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid JSON.
+
+`bitjson::toBitJSON` applies compression by default; toggleable via parameter `compress`. Similarly `bitjson::fromBitJSON` expects a compressed bit array by default, which likewise can be toggled via parameter `compressed`. 
+
+### Uncompressed bit JSON
+
+```{r}
+xl <- bitjson::toBitJSON(419L, compress=FALSE)
+cat('uncompressed:\n', xl, sep='')
+```
+
+### Compressed bit JSON
+
+```{r}
+xs <- bitjson::toBitJSON(419L, compress=TRUE)  # default
+cat('compressed:\n', xs, sep='')
+```
+
+## Compression
+
+Since bit arrays can get rather vast, `bitjson` uses a simple de/compression approach that grounds on [run-length encoding](https://en.wikipedia.org/wiki/Run-length_encoding). A notable property of the applied compression algorithm is zero encoding overhead, meaning the compressed array will in no case be longer than its uncompressed counterpart. To speed things up the de/compression algorithms are implemented in `C++` via `Rcpp`.
+
+### Iterative compression algorithm
+
+* Setup a return array, `rtn`, that will grow *on the fly*
+* Initialize a count variable, `cnt`, that captures each run's length to `0`
+* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration to the first bit in the input array (`i` being the index of the current element in the bit array each iteration)
+* Iterate the input bit array
+    + if the bit at index `i` is not equal to `prev`, record the bit run of `prev` in `rtn`:
+        * if the run-length of `prev` aka `cnt` is equal to `1` append `prev` to `rtn`
+        * otherwise, if the run-length of `prev` aka `cnt` is greater than `1` append `cnt` to `rtn`, then append `prev` to `rtn`
+        * reset `cnt` to `0`
+    + increment `cnt`
+    + assign the bit at index `i` to `prev`
+* Consume remainder/traling bit(run):
+    + if the run-length of `prev` aka `cnt` is equal to `1` append `prev` to `rtn`
+    + otherwise, if the run-length of `prev` aka `cnt` is greater than `1` append `cnt` to `rtn`, then append `prev` to `rtn`
+* Return `rtn`
+
+### Iterative decompression algorithm
+
+* Setup a return array, `rtn`, that will grow *on the fly*
+* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration to `0` (`i` being the index of the current element in the bit array each iteration)
+* Iterate the compressed input (integer) array
+    + if `prev` is greater `1` AND the integer at index `i` is either `0` or `1` append the integer at index `i` to `rtn` `prev` times
+    + otherwise, if the integer at index `i` is either `0` or `1` append the integer at index `i` to `rtn`
+    + assign the integer at index `i` to `prev`
+* Return `rtn`
