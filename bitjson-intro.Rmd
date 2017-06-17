@@ -1,21 +1,16 @@
 ---
-title: "bitjson-introduction"
+title: "bitjson-intro"
 subtitle: "De/serialization utility based on JSON bit arrays"
-author: "Noah Anabiik Schwarz"
 date: "`r Sys.Date()`"
 tags: [JSON, de/serialization]
 output: 
-  rmarkdown::html_vignette:
+  rmarkdown::github_document:
     toc: true
     toc_depth: 3
-vignette: >
-  %\VignetteIndexEntry{bitjson-introduction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 <style>
-code {word-break: break-all;}
+code, pre code, pre>code {word-wrap: break-word !important;}
 </style>
 
 ```{r setup, include=FALSE}

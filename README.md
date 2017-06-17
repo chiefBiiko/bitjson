@@ -9,9 +9,11 @@ De/serialization utility based on JSON bit arrays.
 The de/serialization functions that form the core of this package allow
 un/marshaling *any* R object from/to a JSON bit array while providing:
 
-+ perfect data consistency
-+ perfectly valid JSON
-+ lossless compression (simple run-length encoding)
+* perfect data consistency
+* perfectly valid JSON
+* lossless compression (simple run-length encoding)
+
+Check out the [intro](bitjson-intro.md).
 
 ## Get it
 
