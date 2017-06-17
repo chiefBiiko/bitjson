@@ -13,10 +13,14 @@ bitjson-intro
     -   [Iterative compression algorithm](#iterative-compression-algorithm)
     -   [Iterative decompression algorithm](#iterative-decompression-algorithm)
 
+------------------------------------------------------------------------
+
 Why
 ---
 
 ..not? Just wanted to un/marshal `R` objects from/to a text representation that perfectly preserves data consistency, send it over a *wire* or just dump it anywhere.
+
+------------------------------------------------------------------------
 
 Examples
 --------
@@ -53,6 +57,8 @@ cat('consistent via disk:', identical(datasets::islands, inlands))
 
     consistent via disk: TRUE
 
+------------------------------------------------------------------------
+
 Data format
 -----------
 
@@ -85,6 +91,8 @@ cat('compressed:\n', xs, sep='')
 
     compressed:
     [3,0,2,1,0,1,2,0,1,0,1,29,0,1,14,0,2,1,6,0,2,1,7,0,1,15,0,1,6,0,2,1,38,0,1,0,2,1,28,0,1,23,0,1,7,0,2,1,3,0,1,0,1]
+
+------------------------------------------------------------------------
 
 Compression
 -----------

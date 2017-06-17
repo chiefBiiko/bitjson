@@ -13,9 +13,13 @@ output:
 knitr::opts_chunk$set(comment=NA)
 ```
 
+***
+
 ## Why
 
 ..not? Just wanted to un/marshal `R` objects from/to a text representation that perfectly preserves data consistency, send it over a *wire* or just dump it anywhere. 
+
+***
 
 ## Examples
 
@@ -51,6 +55,8 @@ cat('consistent via disk:', identical(datasets::islands, inlands))
 unlink('islands.json')
 ```
 
+***
+
 ## Data format
 
 `bitjson` uses numeric `JSON` arrays as underlying data structure. A `bitjson` array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid `JSON`.
@@ -76,6 +82,8 @@ xs <- bitjson::toBitJSON(419L)
 # compressed bit JSON array
 cat('compressed:\n', xs, sep='')
 ```
+
+***
 
 ## Compression
 
