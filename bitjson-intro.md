@@ -38,7 +38,7 @@ cat('consistent:', identical(datasets::Nile, nile))
 
 ### IO
 
-`bitjson::toBitJSON` allows writing `bitjson` arrays directly to disk by making use of parameter `file`. Since `bitjson` depends on `jsonlite` for conversion between `JSON` arrays and `R` integer vectors it inherits `jsonlite's` powerful IO features. Therefore, `bitjson::fromBitJSON` can unmarshal from a file, url or in-memory `JSON` string.
+`bitjson::toBitJSON` allows writing `bitjson` arrays directly to disk by making use of parameter `file`. Since `bitjson` depends on `jsonlite` for conversion between `JSON` arrays and `R` integer vectors it inherits `jsonlite's` powerful IO features. Therefore, `bitjson::fromBitJSON` can unmarshal from a file, url or in-memory `JSON` string.
 
 ``` r
 # write to disk
