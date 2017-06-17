@@ -13,8 +13,8 @@ bitjson-intro
     -   [Iterative compression algorithm](#iterative-compression-algorithm)
     -   [Iterative decompression algorithm](#iterative-decompression-algorithm)
 
-<style>
-code, pre code, pre>code {word-wrap: break-word !important;}
+<style style="visibility: hidden !important;" hidden>
+code, pre code, pre>code {word-break: break-all !important; word-wrap: break-word !important;}
 </style>
 Why
 ---
