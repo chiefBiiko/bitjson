@@ -9,10 +9,6 @@ output:
     toc_depth: 3
 ---
 
-<style style="visibility: hidden !important;" hidden>
-code, pre code, pre>code {word-break: break-all !important; word-wrap: break-word !important;}
-</style>
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(comment=NA)
 ```
