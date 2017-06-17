@@ -7,16 +7,20 @@ De/serialization utility based on JSON bit arrays.
 ## Features
 
 The de/serialization functions that form the core of this package allow
-un/marshaling *any* R object from/to a JSON bit array while providing:
+un/marshaling *any* R object from/to a bit `JSON` array while providing:
 
 * perfect data consistency
 * perfectly valid JSON
 * lossless compression (simple run-length encoding)
-
-Check out the [intro](bitjson-intro.md).
 
 ## Get it
 
 ```r
 devtools::install_github('chiefBiiko/bitjson')
 ```
+
+## Usage
+
+Check out the [intro](bitjson-intro.md).
+
+MIT © Noah Anabiik Schwarz
