@@ -1,7 +1,9 @@
 ---
 title: "bitjson-introduction"
+subtitle: "De/serialization utility based on JSON bit arrays"
 author: "Noah Anabiik Schwarz"
 date: "`r Sys.Date()`"
+tags: [JSON, de/serialization]
 output: 
   rmarkdown::html_vignette:
       toc: true
@@ -20,11 +22,9 @@ code {word-break: break-all;}
 knitr::opts_chunk$set(comment=NA)
 ```
 
-Package `bitjson` provides powerful de/serialization utilities based on JSON bit arrays.
+## Why
 
-## Motivation
-
-Motivation for writing this utility stems from the desire to un/marshal R objects from/to a text representation that perfectly preserves data consistency. Having such a *dump* mechanism available in `R` allows sending arbitrary `R` objects safely over a *wire* (network, *NIX sockets, Windows named pipes etc.). 
+..not? Just wanted to un/marshal `R` objects from/to a text representation that perfectly preserves data consistency, send it over a *wire* or just dump it anywhere. 
 
 ## Examples
 
@@ -43,7 +43,7 @@ cat('consistent:', identical(datasets::Nile, nile))
 
 ### IO
 
-`bitjson::toBitJSON` allows writing bit JSON arrays directly to disk by making use of parameter `file`. Since `bitjson` depends on `jsonlite` for conversion between JSON data and `R` objects it inherits `jsonlite's` powerful IO features. Therefore, `bitjson::fromBitJSON` can unmarshal from a file, url, or in-memory JSON string.
+`bitjson::toBitJSON` allows writing `bitjson` arrays directly to disk by making use of parameter `file`. Since `bitjson` depends on `jsonlite` for conversion between `JSON` arrays and `R` integer vectors it inherits `jsonlite's` powerful IO features. Therefore, `bitjson::fromBitJSON` can unmarshal from a file, url or in-memory `JSON` string.
 
 ```{r}
 # write to disk
@@ -58,21 +58,27 @@ cat('consistent via disk:', identical(datasets::islands, inlands))
 
 ## Data format
 
-`bitjson` uses JSON arrays as underlying data structure. A `bitjson` array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid JSON.
+`bitjson` uses numeric `JSON` arrays as underlying data structure. A `bitjson` array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid `JSON`.
 
-`bitjson::toBitJSON` applies compression by default; toggleable via parameter `compress`. Similarly `bitjson::fromBitJSON` expects a compressed bit array by default, which likewise can be toggled via parameter `compressed`. 
+`bitjson::toBitJSON` applies compression by default; toggleable via parameter `compress`. Similarly `bitjson::fromBitJSON` expects a compressed bit `JSON` array by default, which likewise can be toggled via parameter `compressed`. Better to use compression though.
 
 ### Uncompressed bit JSON
 
 ```{r}
+# just a demo - do use compression 
 xl <- bitjson::toBitJSON(419L, compress=FALSE)
+
+# uncompressed xl bit JSON array
 cat('uncompressed:\n', xl, sep='')
 ```
 
 ### Compressed bit JSON
 
 ```{r}
-xs <- bitjson::toBitJSON(419L, compress=TRUE)  # default
+# parameter compress defaults to TRUE
+xs <- bitjson::toBitJSON(419L)
+
+# compressed bit JSON array
 cat('compressed:\n', xs, sep='')
 ```
 

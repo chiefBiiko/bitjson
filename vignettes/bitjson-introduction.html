@@ -69,13 +69,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">bitjson-introduction</h1>
+<h3 class="subtitle"><em>De/serialization utility based on JSON bit arrays</em></h3>
 <h4 class="author"><em>Noah Anabiik Schwarz</em></h4>
 <h4 class="date"><em>2017-06-17</em></h4>
 
 
 <div id="TOC">
 <ul>
-<li><a href="#motivation">Motivation</a></li>
+<li><a href="#why">Why</a></li>
 <li><a href="#examples">Examples</a><ul>
 <li><a href="#data-consistency">Data consistency</a></li>
 <li><a href="#io">IO</a></li>
@@ -94,10 +95,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <style>
 code {word-break: break-all;}
 </style>
-<p>Package <code>bitjson</code> provides powerful de/serialization utilities based on JSON bit arrays.</p>
-<div id="motivation" class="section level2">
-<h2>Motivation</h2>
-<p>Motivation for writing this utility stems from the desire to un/marshal R objects from/to a text representation that perfectly preserves data consistency. Having such a <em>dump</em> mechanism available in <code>R</code> allows sending arbitrary <code>R</code> objects safely over a <em>wire</em> (network, *NIX sockets, Windows named pipes etc.).</p>
+<div id="why" class="section level2">
+<h2>Why</h2>
+<p>..not? Just wanted to un/marshal <code>R</code> objects from/to a text representation that perfectly preserves data consistency, send it over a <em>wire</em> or just dump it anywhere.</p>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
@@ -115,7 +115,7 @@ nile &lt;-<span class="st"> </span>bitjson::<span class="kw">fromBitJSON</span>(
 </div>
 <div id="io" class="section level3">
 <h3>IO</h3>
-<p><code>bitjson::toBitJSON</code> allows writing bit JSON arrays directly to disk by making use of parameter <code>file</code>. Since <code>bitjson</code> depends on <code>jsonlite</code> for conversion between JSON data and <code>R</code> objects it inherits <code>jsonlite's</code> powerful IO features. Therefore, <code>bitjson::fromBitJSON</code> can unmarshal from a file, url, or in-memory JSON string.</p>
+<p><code>bitjson::toBitJSON</code> allows writing <code>bitjson</code> arrays directly to disk by making use of parameter <code>file</code>. Since <code>bitjson</code> depends on <code>jsonlite</code> for conversion between <code>JSON</code> arrays and <code>R</code> integer vectors it inherits <code>jsonlite's</code> powerful IO features. Therefore, <code>bitjson::fromBitJSON</code> can unmarshal from a file, url or in-memory <code>JSON</code> string.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># write to disk</span>
 bitjson::<span class="kw">toBitJSON</span>(datasets::islands, <span class="dt">file=</span><span class="st">'islands.json'</span>)
 
@@ -129,18 +129,24 @@ inlands &lt;-<span class="st"> </span>bitjson::<span class="kw">fromBitJSON</spa
 </div>
 <div id="data-format" class="section level2">
 <h2>Data format</h2>
-<p><code>bitjson</code> uses JSON arrays as underlying data structure. A <code>bitjson</code> array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid JSON.</p>
-<p><code>bitjson::toBitJSON</code> applies compression by default; toggleable via parameter <code>compress</code>. Similarly <code>bitjson::fromBitJSON</code> expects a compressed bit array by default, which likewise can be toggled via parameter <code>compressed</code>.</p>
+<p><code>bitjson</code> uses numeric <code>JSON</code> arrays as underlying data structure. A <code>bitjson</code> array contains either zeros and ones exclusively (uncompressed) or a sequence of unsigned integers (compressed). In either case it is valid <code>JSON</code>.</p>
+<p><code>bitjson::toBitJSON</code> applies compression by default; toggleable via parameter <code>compress</code>. Similarly <code>bitjson::fromBitJSON</code> expects a compressed bit <code>JSON</code> array by default, which likewise can be toggled via parameter <code>compressed</code>. Better to use compression though.</p>
 <div id="uncompressed-bit-json" class="section level3">
 <h3>Uncompressed bit JSON</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xl &lt;-<span class="st"> </span>bitjson::<span class="kw">toBitJSON</span>(419L, <span class="dt">compress=</span><span class="ot">FALSE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># just a demo - do use compression </span>
+xl &lt;-<span class="st"> </span>bitjson::<span class="kw">toBitJSON</span>(419L, <span class="dt">compress=</span><span class="ot">FALSE</span>)
+
+<span class="co"># uncompressed xl bit JSON array</span>
 <span class="kw">cat</span>(<span class="st">'uncompressed:</span><span class="ch">\n</span><span class="st">'</span>, xl, <span class="dt">sep=</span><span class="st">''</span>)</code></pre></div>
 <pre><code>uncompressed:
 [0,0,0,1,1,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,1,0,1]</code></pre>
 </div>
 <div id="compressed-bit-json" class="section level3">
 <h3>Compressed bit JSON</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xs &lt;-<span class="st"> </span>bitjson::<span class="kw">toBitJSON</span>(419L, <span class="dt">compress=</span><span class="ot">TRUE</span>)  <span class="co"># default</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># parameter compress defaults to TRUE</span>
+xs &lt;-<span class="st"> </span>bitjson::<span class="kw">toBitJSON</span>(419L)
+
+<span class="co"># compressed bit JSON array</span>
 <span class="kw">cat</span>(<span class="st">'compressed:</span><span class="ch">\n</span><span class="st">'</span>, xs, <span class="dt">sep=</span><span class="st">''</span>)</code></pre></div>
 <pre><code>compressed:
 [3,0,2,1,0,1,2,0,1,0,1,29,0,1,14,0,2,1,6,0,2,1,7,0,1,15,0,1,6,0,2,1,38,0,1,0,2,1,28,0,1,23,0,1,7,0,2,1,3,0,1,0,1]</code></pre>
