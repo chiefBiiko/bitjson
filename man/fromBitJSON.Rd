@@ -4,13 +4,15 @@
 \alias{fromBitJSON}
 \title{Unserialize an R object encoded as bit JSON}
 \usage{
-fromBitJSON(x, compressed = TRUE)
+fromBitJSON(x, compressed = TRUE, ...)
 }
 \arguments{
 \item{x}{Bit JSON string or file reference.}
 
 \item{compressed}{Is the bit JSON array compressed via chief run-length
 encoding?}
+
+\item{...}{Further arguments passed on to `jsonlite::fromJSON`.}
 }
 \value{
 R object.

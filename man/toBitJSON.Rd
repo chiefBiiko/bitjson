@@ -4,7 +4,7 @@
 \alias{toBitJSON}
 \title{Serialize an R object to bit JSON}
 \usage{
-toBitJSON(x, file = NULL, append = FALSE, compress = TRUE)
+toBitJSON(x, file = NULL, append = FALSE, compress = TRUE, ...)
 }
 \arguments{
 \item{x}{Any R object.}
@@ -16,6 +16,8 @@ existing contents?}
 
 \item{compress}{Compress the return bit array to a chief run-length encoded
 integer array?}
+
+\item{...}{Further arguments passed on to `jsonlite::toJSON`.}
 }
 \value{
 Bit json.
