@@ -30,7 +30,7 @@ devtools::install_github('chiefBiiko/bitjson')
 
 ## Usage
 
-Check out the [intro](bitjson-intro.md).
+Check out the [intro](intro/bitjson-intro.md).
 
 ***
 
