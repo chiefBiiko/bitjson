@@ -1,6 +1,6 @@
 bitjson-intro
 ================
-2017-06-17
+2017-06-18
 
 -   [Why](#why)
 -   [Examples](#examples)
@@ -18,7 +18,7 @@ bitjson-intro
 Why
 ---
 
-..not? Just wanted to un/marshal `R` objects from/to a text representation that perfectly preserves data consistency, send it over a *wire* or just dump it anywhere.
+Just wanted to un/marshal `R` objects from/to a text representation that preserves data consistency, can be sent over a *wire* and dumped anywhere.
 
 ------------------------------------------------------------------------
 

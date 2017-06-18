@@ -1,10 +1,11 @@
 # bitjson
 
 [![Build Status](https://travis-ci.org/chiefBiiko/bitjson.svg?branch=master)](https://travis-ci.org/chiefBiiko/bitjson) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/chiefBiiko/bitjson?branch=master&svg=true)](https://ci.appveyor.com/project/chiefBiiko/bitjson)
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 ***
 
-De/serialization utility based on JSON bit arrays.
+De/serialization utility based on bit `JSON` arrays.
 
 ***
 
@@ -15,7 +16,7 @@ un/marshaling *any* R object from/to a bit `JSON` array while providing:
 
 * perfect data consistency
 * perfectly valid JSON
-* lossless compression (simple run-length encoding)
+* lossless compression
 
 ***
 
