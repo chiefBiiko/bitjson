@@ -1,18 +1,18 @@
 # bitjson
 
-#' Does a JSON string look like a literal bit array or a bit array compressed
-#' via chief run-length encoding?
+#' Does a R object look like a literal bitjson array or a bitjson array 
+#' compressed via chief run-length encoding?
 #'
-#' @param json JSON string.
+#' @param x Any R object.
 #' @return Logical.
 #'
 #' @seealso \code{\link{toBitJSON}} \code{\link{fromBitJSON}}
 #'
 #' @export
-looksLikeBitJSON <- function(json) {
-  stopifnot(isTruthyChr(json))
-  return(grepl('^\\[(?:(?:0|1),)*(?:0|1)\\]$', json, perl=TRUE) ||
-           grepl('^\\[(?:(?:0|1),)*(?:\\d+,)+(?:0|1)\\]$', json, perl=TRUE))
+looksLikeBitJSON <- function(x) {
+  if (!is.character(x)) return(FALSE)
+  return(grepl('^\\[(?:(?:0|1),)*(?:0|1)\\]$', x, perl=TRUE) ||
+           grepl('^\\[(?:(?:0|1),)*(?:\\d+,)+(?:0|1)\\]$', x, perl=TRUE))
 }
 
 #' Serialize an R object to bit JSON
