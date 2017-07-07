@@ -1,7 +1,6 @@
 # bitjson
 
-[![Build Status](https://travis-ci.org/chiefBiiko/bitjson.svg?branch=master)](https://travis-ci.org/chiefBiiko/bitjson) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/chiefBiiko/bitjson?branch=master&svg=true)](https://ci.appveyor.com/project/chiefBiiko/bitjson)
-[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Build Status](https://travis-ci.org/chiefBiiko/bitjson.svg?branch=master)](https://travis-ci.org/chiefBiiko/bitjson) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/chiefBiiko/bitjson?branch=master&svg=true)](https://ci.appveyor.com/project/chiefBiiko/bitjson) [![Coverage Status](https://img.shields.io/codecov/c/github/chiefBiiko/bitjson/master.svg)](https://codecov.io/github/chiefBiiko/bitjson?branch=master) [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 ***
 
