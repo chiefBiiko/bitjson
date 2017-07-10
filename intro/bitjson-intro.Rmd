@@ -92,26 +92,26 @@ Since bit arrays can get rather vast, `bitjson` uses a simple de/compression app
 ### Iterative compression algorithm
 
 * Setup a return array, `rtn`, that will grow *on the fly*
-* Initialize a count variable, `cnt`, that captures each run's length to `0`
-* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration to the first bit in the input array (`i` being the index of the current element in the bit array each iteration)
+* Initialize a count variable, `cnt`, that captures each run's length, to `0`
+* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration, to the first bit in the input array (`i` being the index of the current element in the bit array each iteration)
 * Iterate the input bit array
     * if the bit at index `i` is not equal to `prev`, record the bit run of `prev` in `rtn`:
         * if the run-length of `prev` aka `cnt` is equal to `1` append `prev` to `rtn`
-        * otherwise, if the run-length of `prev` aka `cnt` is greater than `1` append `cnt` to `rtn`, then append `prev` to `rtn`
+        * otherwise, if the run-length of `prev` aka `cnt` is greater than `1`, append `cnt` to `rtn`, then append `prev` to `rtn`
         * reset `cnt` to `0`
     * increment `cnt`
     * assign the bit at index `i` to `prev`
 * Consume remainder/traling bit(run):
-    * if the run-length of `prev` aka `cnt` is equal to `1` append `prev` to `rtn`
-    * otherwise, if the run-length of `prev` aka `cnt` is greater than `1` append `cnt` to `rtn`, then append `prev` to `rtn`
+    * if the run-length of `prev` aka `cnt` is equal to `1`, append `prev` to `rtn`
+    * otherwise, if the run-length of `prev` aka `cnt` is greater than `1`, append `cnt` to `rtn`, then append `prev` to `rtn`
 * Return `rtn`
 
 ### Iterative decompression algorithm
 
 * Setup a return array, `rtn`, that will grow *on the fly*
-* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration to `0` (`i` being the index of the current element in the bit array each iteration)
+* Initialize a *lookbehind* variable, `prev`, that holds the bit at `i - 1` each iteration, to `0` (`i` being the index of the current element in the bit array each iteration)
 * Iterate the compressed input (integer) array
-    * if `prev` is greater `1` AND the integer at index `i` is either `0` or `1` append the integer at index `i` to `rtn` `prev` times
-    * otherwise, if the integer at index `i` is either `0` or `1` append the integer at index `i` to `rtn`
+    * if `prev` is greater `1` AND the integer at index `i` is either `0` or `1`, append the integer at index `i` to `rtn` `prev` times
+    * otherwise, if the integer at index `i` is either `0` or `1`, append the integer at index `i` to `rtn`
     * assign the integer at index `i` to `prev`
 * Return `rtn`

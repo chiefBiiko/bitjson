@@ -12,7 +12,7 @@ fromBitJSON(x, compressed = TRUE, ...)
 \item{compressed}{Is the bit JSON array compressed via chief run-length
 encoding?}
 
-\item{...}{Further arguments passed on to `jsonlite::fromJSON`.}
+\item{...}{Further arguments passed on to \code{jsonlite::fromJSON}.}
 }
 \value{
 R object.

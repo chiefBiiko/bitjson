@@ -33,4 +33,4 @@ Check out the [intro](intro/bitjson-intro.md).
 
 ***
 
-MIT © Noah Anabiik Schwarz
+MIT

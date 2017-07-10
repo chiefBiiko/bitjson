@@ -17,7 +17,7 @@ existing contents?}
 \item{compress}{Compress the return bit array to a chief run-length encoded
 integer array?}
 
-\item{...}{Further arguments passed on to `jsonlite::toJSON`.}
+\item{...}{Further arguments passed on to \code{jsonlite::toJSON}.}
 }
 \value{
 Bit json.

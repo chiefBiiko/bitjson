@@ -23,7 +23,7 @@ looksLikeBitJSON <- function(x) {
 #' existing contents?
 #' @param compress Compress the return bit array to a chief run-length encoded
 #' integer array?
-#' @param ... Further arguments passed on to `jsonlite::toJSON`.
+#' @param ... Further arguments passed on to \code{jsonlite::toJSON}.
 #' @return Bit json.
 #'
 #' @seealso \code{\link{looksLikeBitJSON}} \code{\link{fromBitJSON}}
@@ -47,7 +47,7 @@ toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE, ...) {
 #' @param x Bit JSON string or file reference.
 #' @param compressed Is the bit JSON array compressed via chief run-length
 #' encoding?
-#' @param ... Further arguments passed on to `jsonlite::fromJSON`.
+#' @param ... Further arguments passed on to \code{jsonlite::fromJSON}.
 #' @return R object.
 #'
 #' @seealso \code{\link{toBitJSON}} \code{\link{looksLikeBitJSON}}
