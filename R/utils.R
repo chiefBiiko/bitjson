@@ -15,17 +15,17 @@ isTruthyChr <- function(x) {
 }
 
 #' Is an object a data object?
-#' 
+#'
 #' @param x Any R object.
 #' @return Logical.
-#' 
-#' @details Any R object for which \code{is.language} is \code{TRUE} 
-#' [calls, expressions, names/symbols] are not considered data objects 
+#'
+#' @details Any R object for which \code{is.language} is \code{TRUE}
+#' [calls, expressions, names/symbols] are not considered data objects
 #' in this context.
-#' 
-#' @keywords internal 
+#'
+#' @keywords internal
 isDataObject <- function(x) {
-  if (is.vector(x) | is.atomic(x) | is.object(x) | isS4(x) | 
+  if (is.vector(x) | is.atomic(x) | is.object(x) | isS4(x) |
       is.environment(x)) {
     return(TRUE)
   } else {
@@ -34,11 +34,11 @@ isDataObject <- function(x) {
 }
 
 #' Serialize any R object to a bit vector.
-#' 
+#'
 #' @param x Any R object.
-#' @param compress Should the bit vector be compressed via chief run-length 
-#' encoding?
-#' @return Compressed bit vector.
+#' @param Logical. compress Should the bit vector be compressed via chief
+#' run-length encoding?
+#' @return Integer. Compressed bit vector.
 #'
 #' @keywords internal
 serializeToBits <- function(x, compress=TRUE) {
@@ -51,8 +51,8 @@ serializeToBits <- function(x, compress=TRUE) {
 }
 
 #' Unserialize an R object from a bit vector.
-#' 
-#' @param x Compressed bit vector.
+#'
+#' @param x Integer. Compressed bit vector.
 #' @return R object.
 #'
 #' @keywords internal

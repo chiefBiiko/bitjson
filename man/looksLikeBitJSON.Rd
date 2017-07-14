@@ -2,7 +2,7 @@
 % Please edit documentation in R/bitjson.R
 \name{looksLikeBitJSON}
 \alias{looksLikeBitJSON}
-\title{Does a R object look like a literal bitjson array or a bitjson array 
+\title{Does a R object look like a literal bitjson array or a bitjson array
 compressed via chief run-length encoding?}
 \usage{
 looksLikeBitJSON(x)
@@ -14,7 +14,7 @@ looksLikeBitJSON(x)
 Logical.
 }
 \description{
-Does a R object look like a literal bitjson array or a bitjson array 
+Does a R object look like a literal bitjson array or a bitjson array
 compressed via chief run-length encoding?
 }
 \seealso{

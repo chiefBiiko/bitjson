@@ -7,10 +7,10 @@
 fromBitJSON(x, compressed = TRUE, ...)
 }
 \arguments{
-\item{x}{Bit JSON string or file reference.}
+\item{x}{Character. Bit JSON string or file reference.}
 
-\item{compressed}{Is the bit JSON array compressed via chief run-length
-encoding?}
+\item{compressed}{LogicalIs the bit JSON array compressed via chief
+run-length encoding?}
 
 \item{...}{Further arguments passed on to \code{jsonlite::fromJSON}.}
 }

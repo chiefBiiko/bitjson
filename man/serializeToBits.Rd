@@ -9,11 +9,11 @@ serializeToBits(x, compress = TRUE)
 \arguments{
 \item{x}{Any R object.}
 
-\item{compress}{Should the bit vector be compressed via chief run-length 
-encoding?}
+\item{Logical.}{compress Should the bit vector be compressed via chief
+run-length encoding?}
 }
 \value{
-Compressed bit vector.
+Integer. Compressed bit vector.
 }
 \description{
 Serialize any R object to a bit vector.

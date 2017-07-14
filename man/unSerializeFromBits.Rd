@@ -7,7 +7,7 @@
 unSerializeFromBits(x, compressed = TRUE)
 }
 \arguments{
-\item{x}{Compressed bit vector.}
+\item{x}{Integer. Compressed bit vector.}
 }
 \value{
 R object.

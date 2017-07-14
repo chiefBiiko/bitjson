@@ -1,6 +1,6 @@
 # bitjson
 
-#' Does a R object look like a literal bitjson array or a bitjson array 
+#' Does a R object look like a literal bitjson array or a bitjson array
 #' compressed via chief run-length encoding?
 #'
 #' @param x Any R object.
@@ -18,13 +18,13 @@ looksLikeBitJSON <- function(x) {
 #' Serialize an R object to bit JSON
 #'
 #' @param x Any R object.
-#' @param file File name to which to write bit JSON.
-#' @param append When writing to a file with \code{cat} overwrite or append to
-#' existing contents?
-#' @param compress Compress the return bit array to a chief run-length encoded
-#' integer array?
+#' @param file Character. File name to which to write bit JSON.
+#' @param append Logical. When writing to a file with \code{cat} overwrite
+#' or append to existing contents?
+#' @param compress Logical. Compress the return bit array to a chief
+#' run-length encoded integer array?
 #' @param ... Further arguments passed on to \code{jsonlite::toJSON}.
-#' @return Bit json.
+#' @return JSON.
 #'
 #' @seealso \code{\link{looksLikeBitJSON}} \code{\link{fromBitJSON}}
 #'
@@ -44,9 +44,9 @@ toBitJSON <- function(x, file=NULL, append=FALSE, compress=TRUE, ...) {
 
 #' Unserialize an R object encoded as bit JSON
 #'
-#' @param x Bit JSON string or file reference.
-#' @param compressed Is the bit JSON array compressed via chief run-length
-#' encoding?
+#' @param x Character. Bit JSON string or file reference.
+#' @param compressed LogicalIs the bit JSON array compressed via chief
+#' run-length encoding?
 #' @param ... Further arguments passed on to \code{jsonlite::fromJSON}.
 #' @return R object.
 #'

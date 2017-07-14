@@ -9,18 +9,18 @@ toBitJSON(x, file = NULL, append = FALSE, compress = TRUE, ...)
 \arguments{
 \item{x}{Any R object.}
 
-\item{file}{File name to which to write bit JSON.}
+\item{file}{Character. File name to which to write bit JSON.}
 
-\item{append}{When writing to a file with \code{cat} overwrite or append to
-existing contents?}
+\item{append}{Logical. When writing to a file with \code{cat} overwrite
+or append to existing contents?}
 
-\item{compress}{Compress the return bit array to a chief run-length encoded
-integer array?}
+\item{compress}{Logical. Compress the return bit array to a chief
+run-length encoded integer array?}
 
 \item{...}{Further arguments passed on to \code{jsonlite::toJSON}.}
 }
 \value{
-Bit json.
+JSON.
 }
 \description{
 Serialize an R object to bit JSON

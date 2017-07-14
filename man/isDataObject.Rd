@@ -16,8 +16,8 @@ Logical.
 Is an object a data object?
 }
 \details{
-Any R object for which \code{is.language} is \code{TRUE} 
-[calls, expressions, names/symbols] are not considered data objects 
+Any R object for which \code{is.language} is \code{TRUE}
+[calls, expressions, names/symbols] are not considered data objects
 in this context.
 }
 \keyword{internal}
