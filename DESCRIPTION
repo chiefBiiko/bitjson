@@ -1,20 +1,15 @@
 Package: bitjson
 Title: Bit JSON
 Version: 0.0.0.9000
-Authors@R: person("Noah", "Schwarz", email = "noah.anabiik.schwarz@gmail.com", role = c("aut", "cre"))
+Authors@R: person("Noah Anabiik", "Schwarz", email = "noah.anabiik.schwarz@gmail.com", role = c("aut", "cre"))
 Description: Un/serialize R objects from/to bit JSON.
 Imports: Rcpp, jsonlite
 LinkingTo: Rcpp
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-Suggests:
-    testthat,
-    knitr,
-    rmarkdown,
-    compiler,
-    covr
+Suggests: testthat, knitr, rmarkdown, compiler, covr
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr
