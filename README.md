@@ -33,6 +33,6 @@ Check out the [intro](intro/bitjson-intro.md).
 
 ***
 
-#### License
+## License
 
 MIT
